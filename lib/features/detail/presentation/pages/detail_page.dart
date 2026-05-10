@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../../../injection_container.dart';
-import '../../home/domain/entities/story.dart';
+import '../../../../injection_container.dart';
+import '../../../home/domain/entities/story.dart';
 import '../manager/detail_bloc.dart';
 import '../manager/detail_event.dart';
 import '../manager/detail_state.dart';
