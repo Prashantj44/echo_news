@@ -34,6 +34,14 @@ class CommentTile extends StatelessWidget {
             padding: const EdgeInsets.only(left: 4.0),
             child: Html(
               data: comment.text,
+              onLinkTap: (url, _, __) async {
+                if (url != null) {
+                  final uri = Uri.parse(url);
+                  if (await canLaunchUrl(uri)) {
+                    await launchUrl(uri, mode: LaunchMode.externalApplication);
+                  }
+                }
+              },
               style: {
                 "body": Style(
                   fontSize: FontSize(14.0),

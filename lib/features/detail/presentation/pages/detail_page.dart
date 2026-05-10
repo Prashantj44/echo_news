@@ -33,17 +33,28 @@ class DetailPage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    SelectableText(
                       story.title,
                       style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                     if (story.url != null) ...[
                       const SizedBox(height: 8),
                       InkWell(
-                        onTap: () => launchUrl(Uri.parse(story.url!)),
-                        child: Text(
+                        onTap: () async {
+                          final uri = Uri.parse(story.url!);
+                          if (await canLaunchUrl(uri)) {
+                            await launchUrl(uri, mode: LaunchMode.externalApplication);
+                          }
+                        },
+                        child: SelectableText(
                           story.url!,
                           style: const TextStyle(color: Colors.blue, decoration: TextDecoration.underline, fontSize: 14),
+                          onTap: () async {
+                            final uri = Uri.parse(story.url!);
+                            if (await canLaunchUrl(uri)) {
+                              await launchUrl(uri, mode: LaunchMode.externalApplication);
+                            }
+                          },
                         ),
                       ),
                     ],
