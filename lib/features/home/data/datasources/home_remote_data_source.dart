@@ -14,14 +14,14 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
   @override
   Future<List<StoryModel>> getTopStories() async {
     final response = await client.get(
-      Uri.parse('https://hacker-news.firebaseio.com/v0/topstories.json'),
+      Uri.parse('https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty&cache_bust=${DateTime.now().millisecondsSinceEpoch}'),
     );
 
     if (response.statusCode == 200) {
       final List<int> ids = List<int>.from(json.decode(response.body)).take(30).toList();
       
       final storyFutures = ids.map((id) => client.get(
-        Uri.parse('https://hacker-news.firebaseio.com/v0/item/$id.json'),
+        Uri.parse('https://hacker-news.firebaseio.com/v0/item/$id.json?print=pretty&cache_bust=${DateTime.now().millisecondsSinceEpoch}'),
       ));
 
       final storyResponses = await Future.wait(storyFutures);
