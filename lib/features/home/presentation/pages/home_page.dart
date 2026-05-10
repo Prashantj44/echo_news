@@ -32,13 +32,23 @@ class HomePage extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 10),
-            const Text(
-              'Hacker News',
-              style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-              ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Text(
+                  'Hacker News',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
+                ),
+                Text(
+                  'Last updated: ${DateFormat('HH:mm:ss').format(DateTime.now())}',
+                  style: const TextStyle(color: Colors.black54, fontSize: 10),
+                ),
+              ],
             ),
           ],
         ),
@@ -48,12 +58,18 @@ class HomePage extends StatelessWidget {
           if (state is HomeLoading) {
             return const Center(child: CircularProgressIndicator(color: Color(0xFFFF6600)));
           } else if (state is HomeLoaded) {
-            return ListView.separated(
-              itemCount: state.stories.length,
-              separatorBuilder: (context, index) => const Divider(height: 1, color: Colors.grey),
-              itemBuilder: (context, index) {
-                return StoryTile(story: state.stories[index], index: index + 1);
+            return RefreshIndicator(
+              onRefresh: () async {
+                context.read<HomeBloc>().add(FetchTopStories());
               },
+              color: const Color(0xFFFF6600),
+              child: ListView.separated(
+                itemCount: state.stories.length,
+                separatorBuilder: (context, index) => const Divider(height: 1, color: Colors.grey),
+                itemBuilder: (context, index) {
+                  return StoryTile(story: state.stories[index], index: index + 1);
+                },
+              ),
             );
           } else if (state is HomeError) {
             return Center(child: Text(state.message));
@@ -64,6 +80,12 @@ class HomePage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         backgroundColor: const Color(0xFFFF6600),
         onPressed: () {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Refreshing top stories...'),
+              duration: Duration(seconds: 1),
+            ),
+          );
           context.read<HomeBloc>().add(FetchTopStories());
         },
         child: const Icon(Icons.refresh, color: Colors.white),
