@@ -10,9 +10,17 @@ class HomeRepositoryImpl implements HomeRepository {
   HomeRepositoryImpl({required this.remoteDataSource});
 
   @override
-  Future<Either<Failure, List<Story>>> getTopStories() async {
+  Future<Either<Failure, List<Story>>> getNewsStories({
+    required String category,
+    required String countryCode,
+    required String languageCode,
+  }) async {
     try {
-      final remoteStories = await remoteDataSource.getTopStories();
+      final remoteStories = await remoteDataSource.getNewsStories(
+        category: category,
+        countryCode: countryCode,
+        languageCode: languageCode,
+      );
       return Right(remoteStories);
     } catch (e) {
       return Left(ServerFailure());

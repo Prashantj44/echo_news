@@ -1,5 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
+import 'core/services/auth_service.dart';
+import 'core/services/firestore_service.dart';
 import 'features/home/data/datasources/home_remote_data_source.dart';
 import 'features/home/data/repositories/home_repository_impl.dart';
 import 'features/home/domain/repositories/home_repository.dart';
@@ -11,9 +13,16 @@ import 'features/detail/domain/repositories/detail_repository.dart';
 import 'features/detail/domain/usecases/get_comments.dart';
 import 'features/detail/presentation/manager/detail_bloc.dart';
 
+import 'features/home/data/datasources/gemini_service.dart';
+
 final sl = GetIt.instance;
 
 Future<void> init() async {
+  //! Core Services
+  sl.registerLazySingleton(() => AuthService());
+  sl.registerLazySingleton(() => FirestoreService());
+  sl.registerLazySingleton(() => GeminiService(client: sl()));
+
   //! Features - Home
   // Bloc
   sl.registerFactory(() => HomeBloc(getTopStories: sl()));
