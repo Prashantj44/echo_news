@@ -1,5 +1,7 @@
+
 name: echo_news
-description: "A professional Flutter Hacker News client built with Clean Architecture, BLoC, and Firebase. Features concurrent API fetching, high-fidelity HTML comment rendering, and a premium visual design with glass-morphism effects."
+description: "A professional Flutter global news reader app built with Clean Architecture, BLoC, and Firebase. Features concurrent Google News RSS feed fetching, Gemini AI smart classification, and a premium visual design with glass-morphism effects."
+
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev

@@ -6,7 +6,7 @@
 [![BLoC](https://img.shields.io/badge/State--Management-BLoC-blueviolet.svg)](https://bloclibrary.dev/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-**EchoNews** is a high-performance, premium Hacker News client built with Flutter. It has been transformed from a basic prototype into a professionally architected news application featuring a centralized Material 3 design system, state-of-the-art glass-morphism login/signup visual effects, robust state management using BLoC, real-time Firebase Authentication (Email/Password & Google Sign-In), and persistent Cloud Firestore integration.
+**EchoNews** is a high-performance, premium global news reader app built with Flutter. It has been transformed from a basic prototype into a professionally architected news application featuring a centralized Material 3 design system, state-of-the-art glass-morphism login/signup visual effects, robust state management using BLoC, real-time Firebase Authentication (Email/Password & Google Sign-In), and persistent Cloud Firestore integration.
 
 ---
 
@@ -49,7 +49,7 @@ lib/
 │   └── theme/        # AppColors, AppTextStyles, and Material 3 AppTheme
 ├── features/
 │   ├── auth/         # Login, Registration, Splash page & BLoC state
-│   ├── detail/       # Hacker News story details & comments UI
+│   ├── detail/       # Global News story details & comments UI
 │   └── home/         # Onboarding, top stories feed, & widgets
 └── injection_container.dart # Service locator (GetIt) dependency setup
 ```
@@ -101,7 +101,7 @@ graph TD
 | **State Management** | flutter_bloc (BLoC Pattern) |
 | **Dependency Injection**| get_it (Service Locator) |
 | **Functional helpers**| dartz |
-| **Networking & APIs**| http, Hacker News API |
+| **Networking & APIs**| http, Google News RSS, Gemini AI |
 | **Package Management**| Flutter Pub |
 
 ---
